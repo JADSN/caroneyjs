@@ -32,7 +32,10 @@
         </div>
         <div>
           <select class="uk-select">
-            <option>Choose the month</option>
+            <option disabled>Choose the month</option>
+            <option v-for="month in months" :key="month.id" :value="month.id">
+              {{ month.name }}
+            </option>
           </select>
         </div>
         <div>
@@ -42,6 +45,9 @@
             id="inp-year"
             class="uk-input"
             step="1"
+            :min="actualYear - 1"
+            :max="actualYear + 1"
+            :value="actualYear"
           />
         </div>
       </div>
@@ -58,8 +64,7 @@
         </button>
       </div>
 
-      <!-- Table Register Moviments  -->
-      <!-- Table -->
+      <!-- Table of Register Moviments  -->
       <div>
         <div class="uk-overflow-auto">
           <table class="uk-table">
@@ -192,7 +197,7 @@
                     uk-text-middle
                   "
                 >
-                  <span>1.200</span>
+                  <span>{{ getSumOfRegisterDonateInput }}</span>
                 </td>
                 <td
                   class="
@@ -202,7 +207,7 @@
                     uk-text-middle
                   "
                 >
-                  <span>1.200</span>
+                  <span>{{ getSumOfRegisterDonateOutput }}</span>
                 </td>
                 <td
                   class="
@@ -212,7 +217,7 @@
                     uk-text-middle
                   "
                 >
-                  <span>1.200</span>
+                  <span>{{ getSumOfRegisterBankAccountInput }}</span>
                 </td>
                 <td
                   class="
@@ -222,7 +227,7 @@
                     uk-text-middle
                   "
                 >
-                  <span>1.200</span>
+                  <span>{{ getSumOfRegisterBankAccountOutput }}</span>
                 </td>
                 <td
                   class="
@@ -232,7 +237,7 @@
                     uk-text-middle
                   "
                 >
-                  <span>1.200</span>
+                  <span>{{ getSumOfRegisterOtherInput }}</span>
                 </td>
                 <td
                   class="
@@ -242,266 +247,303 @@
                     uk-text-middle
                   "
                 >
-                  <span>1.200</span>
+                  <span>{{ getSumOfRegisterOtherOutput }}</span>
                 </td>
               </tr>
             </tfoot>
 
             <!-- Content table -->
             <tbody>
-              <td>
-                <input
-                  class="
-                    uk-input uk-text-bolder uk-text-uppercase uk-text-center
-                  "
-                  type="date"
-                  name="dt-date"
-                />
-              </td>
-              <td>
-                <input
-                  class="
-                    uk-input
-                    uk-text-bolder
-                    uk-text-uppercase
-                    uk-text-truncate
-                    uk-text-left
-                  "
-                  type="text"
-                  name="fl-description"
-                />
-              </td>
-              <td>
-                <span class="uk-text-bolder uk-text-uppercase uk-text-center">
-                  <select class="uk-select w60">
-                    <option>Choose a symbol</option>
-                  </select>
-                </span>
-              </td>
-              <td>
-                <input
-                  class="uk-input uk-text-bolder uk-text-uppercase uk-text-left"
-                  type="number"
-                  name="fl-don-input"
-                  step="0.01"
-                />
-              </td>
-              <td>
-                <input
-                  class="uk-input uk-text-bolder uk-text-uppercase uk-text-left"
-                  type="number"
-                  name="fl-don-output"
-                  step="0.01"
-                />
-              </td>
-              <td>
-                <input
-                  class="uk-input uk-text-bolder uk-text-uppercase uk-text-left"
-                  type="number"
-                  name="fl-cbc-input"
-                  step="0.01"
-                />
-              </td>
-              <td>
-                <input
-                  class="uk-input uk-text-bolder uk-text-uppercase uk-text-left"
-                  type="number"
-                  name="fl-cbc-output"
-                  step="0.01"
-                />
-              </td>
-
-              <td>
-                <input
-                  class="uk-input uk-text-bolder uk-text-uppercase uk-text-left"
-                  type="number"
-                  name="fl-cbc-input"
-                  step="0.01"
-                />
-              </td>
-              <td>
-                <input
-                  class="uk-input uk-text-bolder uk-text-uppercase uk-text-left"
-                  type="number"
-                  name="fl-cbc-output"
-                  step="0.01"
-                />
-              </td>
-
-              <!-- Actions -->
-              <td>
-                <span
-                  id="btn-edit-register"
-                  uk-toggle="target: #btn-edit-register"
-                  class="uk-icon-button"
-                  uk-icon="pencil"
-                ></span>
-              </td>
-              <td>
-                <span
-                  id="'btn-remove-register'"
-                  uk-toggle="target: #btn-remove-register"
-                  class="uk-icon-button"
-                  uk-icon="trash"
-                ></span>
-              </td>
-
-              <div id="btn-remove-register" uk-modal>
-                <div class="uk-modal-dialog">
-                  <button
-                    class="uk-modal-close-default"
-                    type="button"
-                    uk-close
-                  ></button>
-                  <div class="uk-modal-header">
-                    <h2 class="uk-modal-title">
-                      Delete item <strong>#1</strong>
-                    </h2>
-                  </div>
-                  <div class="uk-modal-body">
-                    <h5 class="uk-modal-title">Are you sure?</h5>
-                  </div>
-                  <div class="uk-modal-footer uk-text-right">
-                    <button
-                      class="uk-button uk-button-default uk-modal-close"
-                      type="button"
+              <tr v-for="register in registers" :key="register.id">
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-center
+                    "
+                    type="date"
+                    name="dt-date"
+                    disabled="true"
+                    :value="register.date"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input
+                      uk-text-bolder
+                      uk-text-uppercase
+                      uk-text-truncate
+                      uk-text-left
+                    "
+                    type="text"
+                    name="inp-description"
+                    disabled="true"
+                    v-model.trim="register.description"
+                  />
+                </td>
+                <td>
+                  <span class="uk-text-bolder uk-text-uppercase uk-text-center">
+                    <select
+                      class="uk-select w60"
+                      disabled="true"
+                      v-model.number="register.symbol"
                     >
-                      Cancel
-                    </button>
-                    <button
-                      class="uk-button uk-button-primary uk-modal-close"
-                      type="button"
-                      role="button"
-                    >
-                      Remove
-                    </button>
-                  </div>
-                </div>
-              </div>
+                      <option disabled>Choose a symbol</option>
+                      <option
+                        v-for="(symb, index) in symbols"
+                        :key="index"
+                        :value="index + 1"
+                      >
+                        {{ symb }}
+                      </option>
+                    </select>
+                  </span>
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-left
+                    "
+                    type="number"
+                    name="inp-donate-input"
+                    step="0.01"
+                    disabled="true"
+                    v-model.number="register.donateInput"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-left
+                    "
+                    type="number"
+                    name="inp-donate-output"
+                    step="0.01"
+                    disabled="true"
+                    v-model.number="register.donateOutput"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-left
+                    "
+                    type="number"
+                    name="inp-cb-input"
+                    step="0.01"
+                    disabled="true"
+                    v-model.number="register.cbInput"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-left
+                    "
+                    type="number"
+                    name="inp-cb-output"
+                    step="0.01"
+                    disabled="true"
+                    v-model.number="register.cbOutput"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-left
+                    "
+                    type="number"
+                    name="inp-others-input"
+                    step="0.01"
+                    disabled="true"
+                    v-model.number="register.otherInput"
+                  />
+                </td>
+                <td>
+                  <input
+                    class="
+                      uk-input uk-text-bolder uk-text-uppercase uk-text-left
+                    "
+                    type="number"
+                    name="inp-others-output"
+                    step="0.01"
+                    disabled="true"
+                    v-model.number="register.otherOutput"
+                  />
+                </td>
+                <!-- Actions -->
+                <td>
+                  <span
+                    :id="'btn-edit-register-' + register.id"
+                    :uk-toggle="'target: #btn-edit-register-' + register.id"
+                    class="uk-icon-button"
+                    uk-icon="pencil"
+                  ></span>
+                </td>
+                <td>
+                  <span
+                    :id="'btn-remove-register-' + register.id"
+                    :uk-toggle="'target: #btn-remove-register-' + register.id"
+                    class="uk-icon-button"
+                    uk-icon="trash"
+                  ></span>
+                </td>
 
-              <!-- Edit modal dialog -->
-              <div id="btn-edit-register" uk-modal>
-                <div class="uk-modal-dialog">
-                  <button
-                    class="uk-modal-close-default"
-                    type="button"
-                    uk-close
-                  ></button>
-                  <div class="uk-modal-header">
-                    <h2>Edit item <strong>#1</strong></h2>
-                  </div>
-                  <div class="uk-modal-body">
-                    <div>
-                      <!-- Symbol -->
+                <!-- Modals Actions -->
+
+                <!-- Edit modal dialog -->
+                <div :id="'btn-edit-register-' + register.id" uk-modal>
+                  <div class="uk-modal-dialog">
+                    <button
+                      class="uk-modal-close-default"
+                      type="button"
+                      uk-close
+                    ></button>
+                    <div class="uk-modal-header">
+                      <h2>
+                        Edit item <strong>#{{ register.id }}</strong>
+                      </h2>
+                    </div>
+                    <div class="uk-modal-body">
                       <div>
-                        <label for="symbol-option">Symbol</label>
-
-                        <select
-                          class="uk-select w60"
-                          name="symbol-option"
-                          id="symbol-option"
-                        >
-                          <option>Choose a symbol</option>
-                        </select>
+                        <!-- Symbol -->
+                        <div>
+                          <label for="symbol-option">Symbol</label>
+                          <select
+                            class="uk-select w60"
+                            name="symbol-option"
+                            id="symbol-option"
+                          >
+                            <option>Choose a symbol</option>
+                          </select>
+                        </div>
+                        <!-- Date -->
+                        <div class="uk-margin-top">
+                          <label for="inp-add-date">Date</label>
+                          <input
+                            class="
+                              uk-input
+                              uk-text-bolder
+                              uk-text-uppercase
+                              uk-text-center
+                            "
+                            type="date"
+                            name="inp-add-date"
+                            id="inp-add-date"
+                          />
+                        </div>
                       </div>
-
-                      <!-- Date -->
+                      <!-- Description -->
                       <div class="uk-margin-top">
-                        <label for="inp-add-date">Date</label>
-                        <input
-                          class="
-                            uk-input
-                            uk-text-bolder
-                            uk-text-uppercase
-                            uk-text-center
-                          "
-                          type="date"
-                          name="inp-add-date"
-                          id="inp-add-date"
-                        />
+                        <label for="inp-add-description">Description</label>
+                        <textarea
+                          class="uk-textarea"
+                          name="inp-add-description"
+                          id="inp-add-description"
+                        ></textarea>
+                      </div>
+                      <!-- Donate -->
+                      <div class="uk-margin-top">
+                        <label for="">Donate</label>
+                        <div class="uk-flex">
+                          <input
+                            class="uk-input"
+                            type="text"
+                            placeholder="Input"
+                          />
+                          <input
+                            class="uk-input"
+                            type="text"
+                            placeholder="Output"
+                          />
+                        </div>
+                      </div>
+                      <!-- BACK ACCOUNT SAFE / SAFE BOX -->
+                      <div class="uk-margin-top">
+                        <label for="">BACK ACCOUNT SAFE / SAFE BOX</label>
+                        <div class="uk-flex">
+                          <input
+                            class="uk-input"
+                            type="text"
+                            placeholder="Input"
+                          />
+                          <input
+                            class="uk-input"
+                            type="text"
+                            placeholder="Output"
+                          />
+                        </div>
+                      </div>
+                      <!-- Other -->
+                      <div class="uk-margin-top">
+                        <label for="">Other</label>
+                        <div class="uk-flex">
+                          <input
+                            class="uk-input"
+                            type="text"
+                            placeholder="Input"
+                          />
+                          <input
+                            class="uk-input"
+                            type="text"
+                            placeholder="Output"
+                          />
+                        </div>
                       </div>
                     </div>
-
-                    <!-- Description -->
-                    <div class="uk-margin-top">
-                      <label for="inp-add-description">Description</label>
-                      <textarea
-                        class="uk-textarea"
-                        name="inp-add-description"
-                        id="inp-add-description"
-                      ></textarea>
+                    <!-- Buttons Modal -->
+                    <div class="uk-modal-footer uk-text-right">
+                      <button
+                        class="uk-button uk-button-default uk-modal-close"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="uk-button uk-button-primary uk-modal-close"
+                        type="button"
+                        role="button"
+                      >
+                        Edit
+                      </button>
                     </div>
-
-                    <!-- Donate -->
-                    <div class="uk-margin-top">
-                      <label for="">Donate</label>
-                      <div class="uk-flex">
-                        <input
-                          class="uk-input"
-                          type="text"
-                          placeholder="Input"
-                        />
-                        <input
-                          class="uk-input"
-                          type="text"
-                          placeholder="Output"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- BACK ACCOUNT SAFE / SAFE BOX -->
-                    <div class="uk-margin-top">
-                      <label for="">BACK ACCOUNT SAFE / SAFE BOX</label>
-                      <div class="uk-flex">
-                        <input
-                          class="uk-input"
-                          type="text"
-                          placeholder="Input"
-                        />
-                        <input
-                          class="uk-input"
-                          type="text"
-                          placeholder="Output"
-                        />
-                      </div>
-                    </div>
-
-                    <!-- Other -->
-                    <div class="uk-margin-top">
-                      <label for="">Other</label>
-                      <div class="uk-flex">
-                        <input
-                          class="uk-input"
-                          type="text"
-                          placeholder="Input"
-                        />
-                        <input
-                          class="uk-input"
-                          type="text"
-                          placeholder="Output"
-                        />
-                      </div>
-                    </div>
-                  </div>
-
-                  <!-- Buttons Modal -->
-                  <div class="uk-modal-footer uk-text-right">
-                    <button
-                      class="uk-button uk-button-default uk-modal-close"
-                      type="button"
-                    >
-                      Cancel
-                    </button>
-                    <button
-                      class="uk-button uk-button-primary uk-modal-close"
-                      type="button"
-                      role="button"
-                    >
-                      Edit
-                    </button>
                   </div>
                 </div>
-              </div>
+
+                <!-- Remove modal dialog -->
+                <div :id="'btn-remove-register-' + register.id" uk-modal>
+                  <div class="uk-modal-dialog">
+                    <button
+                      class="uk-modal-close-default"
+                      type="button"
+                      uk-close
+                    ></button>
+                    <div class="uk-modal-header">
+                      <h2 class="uk-modal-title">
+                        Delete item <strong>#{{ register.id }}</strong>
+                      </h2>
+                    </div>
+                    <div class="uk-modal-body">
+                      <h5 class="uk-modal-title">Are you sure?</h5>
+                    </div>
+                    <div class="uk-modal-footer uk-text-right">
+                      <button
+                        class="uk-button uk-button-default uk-modal-close"
+                        type="button"
+                      >
+                        Cancel
+                      </button>
+                      <button
+                        class="uk-button uk-button-primary uk-modal-close"
+                        type="button"
+                        role="button"
+                      >
+                        Remove
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -634,8 +676,40 @@
 </template>
 
 <script>
+import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
+
+import { obtainAllMonthsOfYear, actualYear } from "./utils/date";
+
 export default {
   name: "App",
+  computed: {
+    months() {
+      return obtainAllMonthsOfYear();
+    },
+    actualYear() {
+      return actualYear();
+    },
+    ...mapState({
+      registers: (state) => state.registers,
+      symbols: (state) => state.symbols,
+    }),
+    ...mapGetters([
+      "getSumOfRegisterDonateInput",
+      "getSumOfRegisterDonateOutput",
+      "getSumOfRegisterBankAccountInput",
+      "getSumOfRegisterBankAccountOutput",
+      "getSumOfRegisterOtherInput",
+      "getSumOfRegisterOtherOutput",
+      // "getSymbols",
+    ]),
+  },
+  methods: {
+    // ...mapMutations(["SET_TASK_DESCRIPTION"]),
+    // ...mapActions(["createTask", "updateTask", "removeTask"]),
+  },
+  created() {
+    this.$store.dispatch("getAllRegisters");
+  },
 };
 </script>
 
