@@ -7,17 +7,16 @@ export const apiRegister = {
         return api.get(END_POINT);
     },
 
-    // create(newDescription) {
-    //     return api.post(END_POINT, newDescription);
-    // },
+    create(newItem) {
+        return api.post(END_POINT, newItem);
+    },
 
     // edit(newDescription, id) {
     //     const END_POINT_WITH_PARAM = END_POINT + `/${id}`
     //     return api.put(END_POINT_WITH_PARAM, newDescription);
     // },
 
-    // remove(id) {
-    //     const END_POINT_WITH_PARAM = END_POINT + `/${id}`
-    //     return api.delete(END_POINT_WITH_PARAM);
-    // }
+    remove(id) {
+        return api.delete(`${END_POINT}/${id}`);
+    }
 }

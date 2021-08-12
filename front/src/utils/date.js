@@ -3,15 +3,11 @@
 // * Use this function only in input html field of type date
 export const formatDateForInputDateHtmlField = (timestamp) => {
     const date = new Date(timestamp)
-
     const year = date.getFullYear()
     const month = (date.getMonth() + 1).toString().padStart(2, "0")
-    const day = (date.getDate()).toString().padStart(2, "0")
-
+    const day = (date.getDate() + 1).toString().padStart(2, "0")
     const fmtDate = `${year}-${month}-${day}`
-
     return fmtDate
-
 }
 
 // * MapFn function for obtainAllMonthsOfYear
@@ -28,7 +24,7 @@ const allMonths = (_, item) => {
         .format(date)
 
     return {
-        code: item + 1,
+        id: item + 1,
         name: monthName,
     }
 }
@@ -37,6 +33,12 @@ export const actualYear = () => {
     const date = new Date()
     const cuurentYear = date.getFullYear()
     return cuurentYear
+}
+
+export const actualMonth = () => {
+    const date = new Date()
+    const currenMonth = date.getMonth() + 1
+    return currenMonth
 }
 
 

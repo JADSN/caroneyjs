@@ -1,43 +1,43 @@
 {
-    "registers": [
-        {
-            "id": 1,
-            "code": 1,
-            "date": 1612604676000,
-            "description": "lacus morbi quis tortor",
-            "symbol": 1,
-            "donateInput": 287.63,
-            "donateOutput": 42.54,
-            "cbInput": 190.43,
-            "cbOutput": 323.85,
-            "otherInput": 198.89,
-            "otherOutput": 397.49
-        },
-        {
-            "id": 2,
-            "code": 2,
-            "date": 1620376818000,
-            "description": "amet eros suspendisse",
-            "symbol": 3,
-            "donateInput": 236.37,
-            "donateOutput": 227.29,
-            "cbInput": 488.17,
-            "cbOutput": 148.82,
-            "otherInput": 156.86,
-            "otherOutput": 585.21
-        },
-        {
-            "id": 3,
-            "code": 3,
-            "date": 1606947252000,
-            "description": "ultrices posuere cubilia curae mauris",
-            "symbol": 2,
-            "donateInput": 189.99,
-            "donateOutput": 610.68,
-            "cbInput": 507.41,
-            "cbOutput": 427.94,
-            "otherInput": 340.53,
-            "otherOutput": 685.86
-        }
-    ]
+  "registers": [
+    {
+      "id": 1,
+      "code": 1,
+      "date": 1612604676000,
+      "description": "lacus morbi quis tortor",
+      "symbol": 1,
+      "donateInput": 287.63,
+      "donateOutput": 42.54,
+      "cbInput": 190.43,
+      "cbOutput": 323.85,
+      "otherInput": 198.89,
+      "otherOutput": 397.49
+    },
+    {
+      "code": 3,
+      "date": 1629417600000,
+      "description": "asdf",
+      "symbol": 4,
+      "donateInput": 2,
+      "donateOutput": 1,
+      "cbInput": 3,
+      "cbOutput": 3,
+      "otherInput": 9,
+      "otherOutput": 4,
+      "id": 3
+    },
+    {
+      "code": 4,
+      "date": 1628553600000,
+      "description": "asdasdfasdfasfasdf",
+      "symbol": 1,
+      "donateInput": 0,
+      "donateOutput": 0,
+      "cbInput": 0,
+      "cbOutput": 0,
+      "otherInput": 0,
+      "otherOutput": 0,
+      "id": 4
+    }
+  ]
 }

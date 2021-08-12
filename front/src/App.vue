@@ -1,5 +1,19 @@
 <template>
   <div class="uk-container-expand">
+    <!-- Navbar -->
+    <div>
+      <nav class="uk-navbar-container" uk-navbar>
+        <div class="uk-navbar-left">
+          <ul class="uk-navbar-nav">
+            <li class="uk-active uk-text-bolder uk-text-uppercase">
+              <a href="#">CARONEY</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <!-- Table -->
     <div class="uk-flex uk-flex-column">
       <!-- Headers -->
       <div class="uk-flex uk-flex-around uk-flex-middle uk-margin-top">
@@ -10,6 +24,7 @@
             id="inp-congregationName"
             class="uk-input"
             placeholder="Congregation name"
+            v-model.trim="congName"
           />
         </div>
         <div>
@@ -19,6 +34,7 @@
             id="inp-city"
             class="uk-input"
             placeholder="City name"
+            v-model.trim="cityName"
           />
         </div>
         <div>
@@ -28,10 +44,11 @@
             id="inp-state"
             class="uk-input"
             placeholder="State name"
+            v-model.trim="stateName"
           />
         </div>
         <div>
-          <select class="uk-select">
+          <select class="uk-select" v-model.number="actualMonth">
             <option disabled>Choose the month</option>
             <option v-for="month in months" :key="month.id" :value="month.id">
               {{ month.name }}
@@ -278,7 +295,7 @@
                     type="text"
                     name="inp-description"
                     disabled="true"
-                    v-model.trim="register.description"
+                    :value="register.description"
                   />
                 </td>
                 <td>
@@ -286,7 +303,7 @@
                     <select
                       class="uk-select w60"
                       disabled="true"
-                      v-model.number="register.symbol"
+                      :value="register.symbol"
                     >
                       <option disabled>Choose a symbol</option>
                       <option
@@ -308,7 +325,7 @@
                     name="inp-donate-input"
                     step="0.01"
                     disabled="true"
-                    v-model.number="register.donateInput"
+                    :value="register.donateInput"
                   />
                 </td>
                 <td>
@@ -320,7 +337,7 @@
                     name="inp-donate-output"
                     step="0.01"
                     disabled="true"
-                    v-model.number="register.donateOutput"
+                    :value="register.donateOutput"
                   />
                 </td>
                 <td>
@@ -332,7 +349,7 @@
                     name="inp-cb-input"
                     step="0.01"
                     disabled="true"
-                    v-model.number="register.cbInput"
+                    :value="register.cbInput"
                   />
                 </td>
                 <td>
@@ -344,7 +361,7 @@
                     name="inp-cb-output"
                     step="0.01"
                     disabled="true"
-                    v-model.number="register.cbOutput"
+                    :value="register.cbOutput"
                   />
                 </td>
                 <td>
@@ -356,7 +373,7 @@
                     name="inp-others-input"
                     step="0.01"
                     disabled="true"
-                    v-model.number="register.otherInput"
+                    :value="register.otherInput"
                   />
                 </td>
                 <td>
@@ -368,7 +385,7 @@
                     name="inp-others-output"
                     step="0.01"
                     disabled="true"
-                    v-model.number="register.otherOutput"
+                    :value="register.otherOutput"
                   />
                 </td>
                 <!-- Actions -->
@@ -412,9 +429,16 @@
                           <select
                             class="uk-select w60"
                             name="symbol-option"
-                            id="symbol-option"
+                            v-model.number.lazy="register.symbol"
                           >
                             <option>Choose a symbol</option>
+                            <option
+                              v-for="(symb, index) in symbols"
+                              :key="index"
+                              :value="index + 1"
+                            >
+                              {{ symb }}
+                            </option>
                           </select>
                         </div>
                         <!-- Date -->
@@ -430,6 +454,7 @@
                             type="date"
                             name="inp-add-date"
                             id="inp-add-date"
+                            v-model.lazy="register.date"
                           />
                         </div>
                       </div>
@@ -440,6 +465,7 @@
                           class="uk-textarea"
                           name="inp-add-description"
                           id="inp-add-description"
+                          v-model.lazy="register.description"
                         ></textarea>
                       </div>
                       <!-- Donate -->
@@ -448,13 +474,15 @@
                         <div class="uk-flex">
                           <input
                             class="uk-input"
-                            type="text"
+                            type="number"
                             placeholder="Input"
+                            :value="register.donateInput"
                           />
                           <input
                             class="uk-input"
-                            type="text"
+                            type="number"
                             placeholder="Output"
+                            :value="register.donateOutput"
                           />
                         </div>
                       </div>
@@ -464,13 +492,15 @@
                         <div class="uk-flex">
                           <input
                             class="uk-input"
-                            type="text"
+                            type="number"
                             placeholder="Input"
+                            :value="register.cbInput"
                           />
                           <input
                             class="uk-input"
-                            type="text"
+                            type="number"
                             placeholder="Output"
+                            :value="register.cbOutput"
                           />
                         </div>
                       </div>
@@ -480,17 +510,20 @@
                         <div class="uk-flex">
                           <input
                             class="uk-input"
-                            type="text"
+                            type="number"
                             placeholder="Input"
+                            :value="register.otherInput"
                           />
                           <input
                             class="uk-input"
-                            type="text"
+                            type="number"
                             placeholder="Output"
+                            :value="register.otherOutput"
                           />
                         </div>
                       </div>
                     </div>
+
                     <!-- Buttons Modal -->
                     <div class="uk-modal-footer uk-text-right">
                       <button
@@ -503,6 +536,7 @@
                         class="uk-button uk-button-primary uk-modal-close"
                         type="button"
                         role="button"
+                        @click.prevent="changeRegister()"
                       >
                         Edit
                       </button>
@@ -537,6 +571,7 @@
                         class="uk-button uk-button-primary uk-modal-close"
                         type="button"
                         role="button"
+                        @click.prevent="removeRegister(register.id)"
                       >
                         Remove
                       </button>
@@ -568,8 +603,16 @@
               class="uk-select w60"
               name="symbol-option"
               id="symbol-option"
+              v-model="registerToAdd.symbol"
             >
               <option>Choose a symbol</option>
+              <option
+                v-for="(symb, index) in symbols"
+                :key="index"
+                :value="index + 1"
+              >
+                {{ symb }}
+              </option>
             </select>
           </div>
 
@@ -581,6 +624,7 @@
               type="date"
               name="inp-add-date"
               id="inp-add-date"
+              v-model.trim.lazy="registerToAdd.date"
             />
           </div>
         </div>
@@ -593,6 +637,7 @@
             name="inp-add-description"
             id="inp-add-description"
             placeholder="Descripiton"
+            v-model.trim="registerToAdd.description"
           ></textarea>
         </div>
 
@@ -605,12 +650,14 @@
               type="number"
               step="1.0"
               placeholder="Input"
+              v-model.number="registerToAdd.donateInput"
             />
             <input
               class="uk-input"
               type="number"
               step="1.0"
               placeholder="Output"
+              v-model.number="registerToAdd.donateOutput"
             />
           </div>
         </div>
@@ -624,12 +671,14 @@
               type="number"
               step="1.0"
               placeholder="Input"
+              v-model.number="registerToAdd.cbInput"
             />
             <input
               class="uk-input"
               type="number"
               step="1.0"
               placeholder="Output"
+              v-model.number="registerToAdd.cbOutput"
             />
           </div>
         </div>
@@ -643,12 +692,14 @@
               type="number"
               step="1.0"
               placeholder="Input"
+              v-model.number="registerToAdd.otherInput"
             />
             <input
               class="uk-input"
               type="number"
               step="1.0"
               placeholder="Output"
+              v-model.number="registerToAdd.otherOutput"
             />
           </div>
         </div>
@@ -667,6 +718,7 @@
           class="uk-button uk-button-primary uk-modal-close"
           type="button"
           role="button"
+          @click.prevent="createRegister(registerToAdd)"
         >
           Add
         </button>
@@ -676,38 +728,116 @@
 </template>
 
 <script>
+import { reactive } from "vue";
 import { mapState, mapGetters, mapMutations, mapActions } from "vuex";
 
-import { obtainAllMonthsOfYear, actualYear } from "./utils/date";
+import {
+  obtainAllMonthsOfYear,
+  actualYear,
+  actualMonth,
+  formatDateForInputDateHtmlField,
+} from "./utils/date";
 
 export default {
   name: "App",
+  data() {
+    const registerToAdd = reactive({
+      date: "",
+      description: "",
+      symbol: 1,
+      donateInput: 0,
+      donateOutput: 0,
+      cbInput: 0,
+      cbOutput: 0,
+      otherInput: 0,
+      otherOutput: 0,
+    });
+
+    return { registerToAdd };
+  },
   computed: {
-    months() {
-      return obtainAllMonthsOfYear();
+    congName: {
+      get() {
+        return this.getCongregationName;
+      },
+      set(newValue) {
+        this.SET_CONGREGATION_NAME(newValue);
+      },
     },
-    actualYear() {
-      return actualYear();
+    cityName: {
+      get() {
+        return this.getCityName;
+      },
+      set(newValue) {
+        this.SET_ACTUAL_CITY_NAME(newValue);
+      },
+    },
+    stateName: {
+      get() {
+        return this.getStateName;
+      },
+      set(newValue) {
+        this.SET_ACTUAL_STATE_NAME(newValue);
+      },
+    },
+    actualMonth: {
+      get() {
+        return this.getMonth;
+      },
+      set(newValue) {
+        this.SET_MONTH(newValue);
+      },
+    },
+    months: {
+      get() {
+        return this.getAllMonths;
+      },
+      set(newValue) {
+        this.SET_ALL_MONTHS(newValue);
+      },
+    },
+    actualYear: {
+      get() {
+        return this.getYear;
+      },
+      set(newValue) {
+        this.SET_YEAR(newValue);
+      },
     },
     ...mapState({
-      registers: (state) => state.registers,
       symbols: (state) => state.symbols,
+      registers: (state) => state.registers,
     }),
     ...mapGetters([
+      "getCongregationName",
+      "getCityName",
+      "getStateName",
+      "getMonth",
+      "getAllMonths",
+      "getYear",
       "getSumOfRegisterDonateInput",
       "getSumOfRegisterDonateOutput",
       "getSumOfRegisterBankAccountInput",
       "getSumOfRegisterBankAccountOutput",
       "getSumOfRegisterOtherInput",
       "getSumOfRegisterOtherOutput",
-      // "getSymbols",
     ]),
   },
   methods: {
-    // ...mapMutations(["SET_TASK_DESCRIPTION"]),
-    // ...mapActions(["createTask", "updateTask", "removeTask"]),
+    ...mapMutations([
+      "SET_CONGREGATION_NAME",
+      "SET_ACTUAL_CITY_NAME",
+      "SET_ACTUAL_STATE_NAME",
+      "SET_MONTH",
+      "SET_ALL_MONTHS",
+      "SET_YEAR",
+    ]),
+    ...mapActions(["createRegister", "changeRegister", "removeRegister"]),
   },
   created() {
+    this.actualMonth = actualMonth();
+    this.months = obtainAllMonthsOfYear();
+    this.actualYear = actualYear();
     this.$store.dispatch("getAllRegisters");
   },
 };

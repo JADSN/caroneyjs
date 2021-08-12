@@ -1,8 +1,28 @@
 
 export const getters = {
-    // * Symbols
-    getSymbols(state) {
-        return state.symbols;
+
+    getCongregationName(state) {
+        return state.congregationName;
+    },
+
+    getCityName(state) {
+        return state.cityName;
+    },
+
+    getStateName(state) {
+        return state.stateName;
+    },
+
+    getMonth(state) {
+        return state.actualMonth;
+    },
+
+    getAllMonths(state) {
+        return state.allMonths;
+    },
+
+    getYear(state) {
+        return state.actualYear;
     },
 
     getRegisterListLength(state) {
@@ -18,6 +38,7 @@ export const getters = {
             }, 0)
     },
 
+    // * Register 
     getSumOfRegisterDonateOutput(state) {
         return state.registers
             .reduce((accumulator, currentValue) => {
@@ -56,7 +77,13 @@ export const getters = {
                 const sum = accumulator + currentValue['otherOutput']
                 return sum
             }, 0)
-    }
+    },
 
+    getMaxCode(state) {
+        const registerCodes = state.registers.map((register) => register.code)
+        const maxCode = Math.max(...registerCodes)
+        return maxCode
+
+    },
 
 }
