@@ -1,13 +1,16 @@
 <template>
   <div>
     <div class="uk-margin">
-      <label for="inp-finish-month">Of the month ending in:</label>
-      <input
-        class="uk-input"
+      <label class="uk-text-bolder uk-text-uppercase" for="inp-finish-month"
+        >Of the month ending in:
+      </label>
+      <span
+        class="uk-text-uppercase"
         type="text"
         id="inp-finish-month"
-        placeholder="Input"
-      />
+        placeholder="Finish date"
+        >{{ getReportDate }}</span
+      >
     </div>
     <div>
       <div>
@@ -154,8 +157,15 @@
 </template>
 
 <script>
+// * Vuex
+import { mapGetters } from "vuex";
+
 export default {
   name: "RegisterResume",
+  computed: {
+    ...mapGetters(["getReportDate"]),
+  },
+  onCreated() {},
 };
 </script>
 

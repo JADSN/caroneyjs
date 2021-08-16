@@ -1,4 +1,4 @@
-import api from './api'
+import api from './api.js'
 
 const END_POINT = 'registers';
 
@@ -11,10 +11,10 @@ export const apiRegister = {
         return api.post(END_POINT, newItem);
     },
 
-    // edit(newDescription, id) {
-    //     const END_POINT_WITH_PARAM = END_POINT + `/${id}`
-    //     return api.put(END_POINT_WITH_PARAM, newDescription);
-    // },
+    edit(item) {
+        const END_POINT_WITH_PARAM = END_POINT + `/${item.id}`
+        return api.put(END_POINT_WITH_PARAM, item);
+    },
 
     remove(id) {
         return api.delete(`${END_POINT}/${id}`);

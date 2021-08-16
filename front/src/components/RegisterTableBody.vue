@@ -8,7 +8,7 @@
 
 <script>
 // * Vuex
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 
 // * Components
 import RegisterTableBodyItem from "./RegisterTableBodyItem.vue";
@@ -21,8 +21,13 @@ export default {
       registers: (state) => state.registers,
     }),
   },
-  created() {
-    this.$store.dispatch("getAllRegisters");
+  methods: {
+    ...mapActions({
+      getAllRegisters: "getAllRegisters",
+    }),
+  },
+  async created() {
+    await this.getAllRegisters();
   },
 };
 </script>

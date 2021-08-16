@@ -27,5 +27,10 @@ export const mutations = {
         state.registers = payload;
     },
 
+    SET_REGISTER(state, payload) {
+        state.register = payload;
+    },
+
+
 }
 

@@ -25,6 +25,22 @@ export const getters = {
         return state.actualYear;
     },
 
+    getReportDate(state) {
+        const localeLanguage = navigator.language
+        const date = new Date(state.actualYear, state.actualMonth, 0);
+
+        const options = {
+            day: 'numeric',
+            year: 'numeric',
+            month: 'long'
+        }
+
+        const fmtDate = Intl.DateTimeFormat(localeLanguage, options)
+            .format(date)
+
+        return fmtDate
+    },
+
     getRegisterListLength(state) {
         return state.registers.length;
     },

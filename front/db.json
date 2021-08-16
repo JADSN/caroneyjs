@@ -1,17 +1,17 @@
 {
   "registers": [
     {
-      "code": null,
-      "date": 1628553600000,
-      "description": "asdf",
+      "code": 2,
+      "description": "asdfddss",
       "symbol": 1,
-      "donateInput": 4,
-      "donateOutput": 3,
+      "donateInput": 6,
+      "donateOutput": 5,
       "cbInput": 2,
       "cbOutput": 2,
       "otherInput": 3,
       "otherOutput": 4,
-      "id": 1
+      "id": 1,
+      "date": "2021-08-10"
     }
   ]
 }

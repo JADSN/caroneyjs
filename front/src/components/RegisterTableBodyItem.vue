@@ -15,7 +15,6 @@
       "
       type="text"
       name="inp-description"
-      disabled="true"
       :value="register.description"
     />
   </td>
@@ -130,7 +129,7 @@
             <select
               class="uk-select w60"
               name="symbol-option"
-              v-model.number.lazy="register.symbol"
+              v-model.number="register.symbol"
             >
               <option>Choose a symbol</option>
               <option
@@ -150,7 +149,7 @@
               type="date"
               name="inp-add-date"
               id="inp-add-date"
-              v-model.lazy="register.date"
+              v-model="register.date"
             />
           </div>
         </div>
@@ -161,7 +160,7 @@
             class="uk-textarea"
             name="inp-add-description"
             id="inp-add-description"
-            v-model.lazy="register.description"
+            v-model="register.description"
           ></textarea>
         </div>
         <!-- Donate -->
@@ -172,13 +171,13 @@
               class="uk-input"
               type="number"
               placeholder="Input"
-              :value="register.donateInput"
+              v-model.number="register.donateInput"
             />
             <input
               class="uk-input"
               type="number"
               placeholder="Output"
-              :value="register.donateOutput"
+              v-model.number="register.donateOutput"
             />
           </div>
         </div>
@@ -190,13 +189,13 @@
               class="uk-input"
               type="number"
               placeholder="Input"
-              :value="register.cbInput"
+              v-model.number="register.cbInput"
             />
             <input
               class="uk-input"
               type="number"
               placeholder="Output"
-              :value="register.cbOutput"
+              v-model.number="register.cbOutput"
             />
           </div>
         </div>
@@ -208,13 +207,13 @@
               class="uk-input"
               type="number"
               placeholder="Input"
-              :value="register.otherInput"
+              v-model.number="register.otherInput"
             />
             <input
               class="uk-input"
               type="number"
               placeholder="Output"
-              :value="register.otherOutput"
+              v-model.number="register.otherOutput"
             />
           </div>
         </div>
@@ -225,6 +224,7 @@
         <button
           class="uk-button uk-button-default uk-modal-close"
           type="button"
+          role="button"
         >
           Cancel
         </button>
@@ -232,7 +232,7 @@
           class="uk-button uk-button-primary uk-modal-close"
           type="button"
           role="button"
-          @click.prevent="changeRegister()"
+          @click.prevent="changeRegister(register)"
         >
           Edit
         </button>
@@ -256,6 +256,7 @@
         <button
           class="uk-button uk-button-default uk-modal-close"
           type="button"
+          role="button"
         >
           Cancel
         </button>
@@ -278,14 +279,22 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   name: "RegisterTableBodyItem",
-  props: ["register"],
+  props: {
+    register: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
+    return {};
+  },
   computed: {
     ...mapState({
       symbols: (state) => state.symbols,
     }),
   },
   methods: {
-    ...mapActions(["changeRegister", "removeRegister"]),
+    ...mapActions(["changeRegister", "removeRegister", "getRegisterById"]),
   },
 };
 </script>

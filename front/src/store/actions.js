@@ -1,23 +1,24 @@
-import { apiRegister } from "../api/registers"
+import { apiRegister } from "../api/registers.js"
 
-import { formatDateForInputDateHtmlField } from '../utils/date'
+import { formatDateForInputDateHtmlField } from '../utils/date.js'
 
 export const actions = {
 
     async getRegisterById({ commit }, id) {
         const dataFromRequest = await apiRegister.all().then(response => response.data).catch(error => [])
-        const result = await dataFromRequest.filter(item => item.id === id)[0]
+        // const result = await dataFromRequest.filter(item => item.id === id)[0]
 
-        // const normalizedData = dataFromRequest.map(({ date, ...item }) => {
-        //     const newDate = formatDateForInputDateHtmlField(date);
-        //     const result = {
-        //         ...item,
-        //         date: newDate,
-        //     }
-        //     return result;
-        // })
+        const normalizedData = dataFromRequest.map(({ date, ...item }) => {
+            const newDate = formatDateForInputDateHtmlField(date);
+            const result = {
+                ...item,
+                date: newDate,
+            }
+            return result;
+        })
 
-        console.log(result);
+        const result = normalizedData[0]
+        // console.log(result);
         return result;
     },
 
@@ -63,9 +64,17 @@ export const actions = {
             .catch(error => []);
     },
 
-    async changeRegister({ commit, dispatch, state }) {
+    async changeRegister({ commit, dispatch, state }, item) {
 
-        // console.log(item);
+        console.log(item);
+        await apiRegister.edit(item)
+            .then(response => {
+                if (response.status === 200) {
+                    dispatch('getAllRegisters')
+                }
+            })
+            .catch(error => []);
+
     },
 
     async removeRegister({ dispatch }, id) {

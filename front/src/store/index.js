@@ -1,9 +1,9 @@
 import { createStore, createLogger } from 'vuex'
 
-import { state } from './state'
-import { getters } from './getters'
-import { mutations } from './mutations'
-import { actions } from './actions'
+import { state } from './state.js'
+import { getters } from './getters.js'
+import { mutations } from './mutations.js'
+import { actions } from './actions.js'
 
 const debug = process.env.NODE_ENV !== 'production'
 
@@ -14,7 +14,7 @@ const store = createStore({
     mutations,
     actions,
     modules: {},
-    strict: debug,
+    strict: false,
     plugins: [createLogger()]
 })
 

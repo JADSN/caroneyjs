@@ -10,6 +10,19 @@ export const formatDateForInputDateHtmlField = (timestamp) => {
     return fmtDate
 }
 
+export const actualYear = () => {
+    const date = new Date()
+    const cuurentYear = date.getFullYear()
+    return cuurentYear
+}
+
+export const actualMonth = () => {
+    const date = new Date()
+    const currenMonth = date.getMonth() + 1
+    return currenMonth
+}
+
+
 // * MapFn function for obtainAllMonthsOfYear
 const allMonths = (_, item) => {
     const localeLanguage = navigator.language
@@ -29,19 +42,6 @@ const allMonths = (_, item) => {
     }
 }
 
-export const actualYear = () => {
-    const date = new Date()
-    const cuurentYear = date.getFullYear()
-    return cuurentYear
-}
-
-export const actualMonth = () => {
-    const date = new Date()
-    const currenMonth = date.getMonth() + 1
-    return currenMonth
-}
-
-
 // * Obtain all months of a year
 export const obtainAllMonthsOfYear = () => {
     const totalMonthsInYear = 12;
@@ -49,5 +49,3 @@ export const obtainAllMonthsOfYear = () => {
 
     return result
 }
-
-// export default { formatDateForInputDateHtmlField }
