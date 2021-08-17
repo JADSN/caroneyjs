@@ -1,8 +1,8 @@
 <template>
-  <div>
+  <div class="uk-container">
     <div class="uk-margin">
       <label class="uk-text-bolder uk-text-uppercase" for="inp-finish-month"
-        >Of the month ending in:
+        >THE MONTH ENDS IN:
       </label>
       <span
         class="uk-text-uppercase"
@@ -12,9 +12,9 @@
         >{{ getReportDate }}</span
       >
     </div>
-    <div>
-      <div>
-        <h3>Donates</h3>
+    <div class="uk-flex uk-flex-between">
+      <div class="uk-margin-right">
+        <h5 class="uk-text-bolder uk-text-uppercase">Donates</h5>
         <div>
           <label for="inp-donate-exit-from-the-previous-month"
             >Exit from the previous month</label
@@ -26,7 +26,7 @@
             placeholder="Input"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-donate-input">INPUT</label>
           <input
             class="uk-input"
@@ -35,7 +35,7 @@
             placeholder="Input"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-donate-input">OUTPUT</label>
           <input
             class="uk-input"
@@ -44,7 +44,7 @@
             placeholder="Output"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-donate-product">PRODUCT</label>
           <input
             class="uk-input"
@@ -55,8 +55,10 @@
         </div>
       </div>
 
-      <div>
-        <h3>BANK ACCOUNT SAFE / SAFE BOX</h3>
+      <div class="uk-margin-right">
+        <h5 class="uk-text-bolder uk-text-uppercase">
+          BANK ACCOUNT SAFE / SAFE BOX
+        </h5>
         <div>
           <label for="inp-safe-box-exit-from-the-previous-month"
             >Exit from the previous month</label
@@ -68,7 +70,7 @@
             placeholder="Input"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-safe-box-input">INPUT</label>
           <input
             class="uk-input"
@@ -77,7 +79,7 @@
             placeholder="Input"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-safe-box-input">OUTPUT</label>
           <input
             class="uk-input"
@@ -86,7 +88,7 @@
             placeholder="Output"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-safe-box-product">PRODUCT</label>
           <input
             class="uk-input"
@@ -98,7 +100,7 @@
       </div>
 
       <div>
-        <h3>Other</h3>
+        <h5 class="uk-text-bolder uk-text-uppercase">Other</h5>
         <div>
           <label for="inp-other-exit-from-the-previous-month"
             >Exit from the previous month</label
@@ -110,7 +112,7 @@
             placeholder="Input"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-other-input">INPUT</label>
           <input
             class="uk-input"
@@ -119,7 +121,7 @@
             placeholder="Input"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-other-input">OUTPUT</label>
           <input
             class="uk-input"
@@ -128,7 +130,7 @@
             placeholder="Output"
           />
         </div>
-        <div>
+        <div class="uk-margin-top">
           <label for="inp-other-product">PRODUCT</label>
           <input
             class="uk-input"
@@ -141,18 +143,27 @@
     </div>
   </div>
 
-  <div>
-    <div class="uk-margin">
-      <label for="inp-balance-available-at-the-end-of-the-month"
-        >BALANCE AVAILABLE AT THE END OF THE MONTH</label
-      >
-      <input
-        class="uk-input"
-        type="text"
-        id="inp-balance-available-at-the-end-of-the-month"
-        placeholder="Input"
-      />
-    </div>
+  <div
+    class="
+      uk-margin-top
+      uk-margin-left
+      uk-flex
+      uk-flex-column
+      uk-flex-center
+      uk-flex-start
+    "
+  >
+    <label
+      class="uk-text-bolder"
+      for="inp-balance-available-at-the-end-of-the-month"
+      >BALANCE AVAILABLE AT THE END OF THE MONTH</label
+    >
+    <input
+      class="uk-input w20"
+      type="text"
+      id="inp-balance-available-at-the-end-of-the-month"
+      placeholder="Input"
+    />
   </div>
 </template>
 
@@ -169,5 +180,8 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.w20 {
+  width: 20%;
+}
 </style>

@@ -2,7 +2,7 @@ export const state = {
     congregationName: "",
     actualMonth: 1,
     allMonths: [],
-    actualYear: 0,
+    actualYear: 2021,
     cityName: "",
     stateName: "",
     symbols: ['O', 'C', 'CE', 'D', 'G', 'E', 'OE', 'N'],
